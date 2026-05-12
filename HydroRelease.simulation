@@ -431,7 +431,8 @@ function computeK(alg, ca, coat, gratio, rad, ph) {
   const sw  = swellingFactor(ph);
   const xld = crossLinkDensity(alg, ca, coat, gratio);
   const r2  = (rad/4)*(rad/4);
-  return 2.5 * sw / (xld * r2);
+  const diffusionCoeff = 1.8;
+  return diffusionCoeff * sw / (xld * r2);
 }
 
 // ── Capsule visual ───────────────────────────────────────────────
@@ -544,7 +545,7 @@ function simulate() {
   const k      = computeK(alg, ca, coat, gratio, rad, ph);
   const xld    = crossLinkDensity(alg, ca, coat, gratio);
 
-  const largeBlocked = (molType==='large') && (ph < 6.8 || sw < 0.75);
+  const largeBlocked = (molType==='large') && (ph < 6.3 || sw < 0.60);
 
   let t = 0;
   anim = setInterval(() => {
